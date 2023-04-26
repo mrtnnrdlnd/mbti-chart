@@ -1,14 +1,13 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import type Coordinate from './Coordinate';
+    import type { MBTIType } from './Types';
 
+    
+    export let mbtiType: MBTIType;
     export let outerRadius: number;
     export let innerRadius: number;
     let middleRadius: number;
     let middleAngle: number;
     export let angle: number;
-    export let color: string;
-    export let introverted: boolean = true;
 
 
     // middleAngle = Math.PI / 16 * (innerRadius/outerRadius);
@@ -17,8 +16,12 @@
 
     middleRadius = (outerRadius + innerRadius) / 2;
     middleAngle = Math.PI / 16 * (innerRadius/outerRadius);
+
+
+    let isExtroverted: boolean = mbtiType.abbreviation[0] == 'E';
+
     
-    if (!introverted) {
+    if (isExtroverted) {
         let temp = innerRadius;
         innerRadius = outerRadius;
         outerRadius = temp;
@@ -32,14 +35,15 @@
 </script>
 
 
-<g>
+<g class="{mbtiType.abbreviation} typePiece {isExtroverted ? 'extroverted' : 'introverted'}">
     <path d="
         M {outerRadius} 0
         L {polarToCartesian(middleRadius, -middleAngle)}
         A {middleRadius} {middleRadius} 0 0 1 {polarToCartesian(middleRadius, middleAngle)}
         L {outerRadius} 0
-        " stroke="black" fill="{color}" stroke-width="0"
-        transform="rotate({angle})"/>
+        " stroke-width="0"
+        transform="rotate({angle})"
+        class="{mbtiType.secondaryFunction.toString()}"/>
 
     <path d="
         M {polarToCartesian(middleRadius, -middleAngle)}
@@ -47,7 +51,43 @@
         A {innerRadius} {innerRadius} 0 0 1 {polarToCartesian(innerRadius, 2*Math.PI / 16)}
         L {polarToCartesian(middleRadius, middleAngle)}
         A {middleRadius} {middleRadius} 0 0 0 {polarToCartesian(middleRadius, -middleAngle)} 
-        " stroke="black" fill="black" stroke-width="0"
-        transform="rotate({angle})"/>
+        " stroke-width="0"
+        transform="rotate({angle})"
+        class="{mbtiType.primaryFunction.toString()}"/>
 </g>
 
+<style>
+
+    .introverted:hover {
+        transform:scale(0.95);
+    }
+    .extroverted:hover {
+        transform:scale(1.05);
+    }
+
+    .Fi {
+        fill: darkred;
+    }
+    .Fe {
+        fill: lightcoral;
+    }
+    .Ti {
+        fill: darkblue;
+    }
+    .Te {
+        fill: lightblue;
+    }
+    .Si {
+        fill: darkgreen;
+    }
+    .Se {
+        fill: lightgreen;
+    }
+    .Ni {
+        fill: darkmagenta;
+    }
+    .Ne {
+        fill: magenta;
+    }
+    
+</style>
