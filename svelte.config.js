@@ -19,7 +19,7 @@ const config = {
 		appDir: 'app',
         paths: {
             // change below to your repo name
-            base: dev ? "" : "/mbti_chart",
+            base: dev ? "" : "/mbti-chart",
         },
 		// fallback: 'app.html'
         // hydrate the <div id="svelte"> element in src/app.html
