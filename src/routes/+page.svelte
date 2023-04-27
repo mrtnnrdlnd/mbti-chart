@@ -8,9 +8,7 @@ import { MBTITypes, type MBTIType, CognetiveFunction } from './Types'
 
 let outerRadius: number = 400;
 
-let innerRadius: number = 270;
-
-let angle = 0;
+let innerRadius: number = 300;
 
 
 
@@ -30,7 +28,7 @@ let angle = 0;
                 angle="{360/8*(index*0.5)}"
                 mbtiType={MBTITypes[index]}
                 />
-      
+
         {/each}
 
     </g>

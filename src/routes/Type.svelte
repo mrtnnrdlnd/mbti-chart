@@ -8,6 +8,7 @@
     let middleRadius: number;
     let middleAngle: number;
     export let angle: number;
+    let current = "";
 
 
     // middleAngle = Math.PI / 16 * (innerRadius/outerRadius);
@@ -34,60 +35,88 @@
 
 </script>
 
+<g class="{mbtiType.abbreviation} {current === mbtiType.abbreviation ? 'selected' : ''} typePiece {isExtroverted ? 'extroverted' : 'introverted'}">
+    <g  transform="rotate({angle})">
 
-<g class="{mbtiType.abbreviation} typePiece {isExtroverted ? 'extroverted' : 'introverted'}">
-    <path d="
-        M {outerRadius} 0
-        L {polarToCartesian(middleRadius, -middleAngle)}
-        A {middleRadius} {middleRadius} 0 0 1 {polarToCartesian(middleRadius, middleAngle)}
-        L {outerRadius} 0
-        " stroke-width="0"
-        transform="rotate({angle})"
-        class="{mbtiType.secondaryFunction.toString()}"/>
+        <!-- Primary Function -->
+        <path d="
+            M {polarToCartesian(middleRadius, -middleAngle)}
+            L {polarToCartesian(innerRadius, -2*Math.PI / 16)}
+            A {innerRadius} {innerRadius} 0 0 1 {polarToCartesian(innerRadius, 2*Math.PI / 16)}
+            L {polarToCartesian(middleRadius, middleAngle)}
+            A {middleRadius} {middleRadius} 0 0 0 {polarToCartesian(middleRadius, -middleAngle)} 
+            " stroke-width="0"
+            class="{mbtiType.primaryFunction.toString()}"/>
 
-    <path d="
-        M {polarToCartesian(middleRadius, -middleAngle)}
-        L {polarToCartesian(innerRadius, -2*Math.PI / 16)}
-        A {innerRadius} {innerRadius} 0 0 1 {polarToCartesian(innerRadius, 2*Math.PI / 16)}
-        L {polarToCartesian(middleRadius, middleAngle)}
-        A {middleRadius} {middleRadius} 0 0 0 {polarToCartesian(middleRadius, -middleAngle)} 
-        " stroke-width="0"
-        transform="rotate({angle})"
-        class="{mbtiType.primaryFunction.toString()}"/>
+        <!-- Secondary Function -->
+        <path d="
+            M {outerRadius} 0
+            L {polarToCartesian(middleRadius, -middleAngle)}
+            A {middleRadius} {middleRadius} 0 0 1 {polarToCartesian(middleRadius, middleAngle)}
+            L {outerRadius} 0
+            " stroke-width="0"
+            class="{mbtiType.secondaryFunction.toString()}"/>
+
+        <!-- Surrounding Line -->
+        <!-- svelte-ignore a11y-click-events-have-key-events -->
+        <path d="
+            M {outerRadius} 0
+            L {polarToCartesian(innerRadius, -2*Math.PI / 16)}
+            A {innerRadius} {innerRadius} 0 0 1 {polarToCartesian(innerRadius, 2*Math.PI / 16)}
+            L {outerRadius} 0
+            " stroke-width="1" stroke-opacity="0.7" fill-opacity="0" stroke="black"
+            on:click={(e) => current == mbtiType.abbreviation ? current = "" : current = mbtiType.abbreviation }
+            />
+    </g>
 </g>
 
 <style>
 
+    g.selected.introverted {
+        transition: 0.3s;
+        filter:grayscale();
+        /* transform:scale(0.98); */
+    }
+    g.selected.extroverted {
+        transition: 0.3s;
+        filter:grayscale();
+        /* transform:scale(1.02); */
+    }
+
     .introverted:hover {
-        transform:scale(0.95);
+        transition: 0.3s;
+        filter:brightness(1.5);
+        /* transform:scale(0.98); */
     }
     .extroverted:hover {
-        transform:scale(1.05);
+        transition: 0.3s;
+        filter:brightness(1.5);
+        /* transform:scale(1.02); */
     }
 
     .Fi {
-        fill: darkred;
+        fill: hwb(0 0% 25%);
     }
     .Fe {
-        fill: lightcoral;
+        fill: hwb(0 25% 0%);
     }
     .Ti {
-        fill: darkblue;
+        fill: hwb(240 0% 25%);
     }
     .Te {
-        fill: lightblue;
+        fill: hwb(240 25% 0%);
     }
     .Si {
-        fill: darkgreen;
+        fill: hwb(120 0% 25%);
     }
     .Se {
-        fill: lightgreen;
+        fill: hwb(120 25% 0%);
     }
     .Ni {
-        fill: darkmagenta;
+        fill: hwb(283 0% 25%);
     }
     .Ne {
-        fill: magenta;
+        fill: hwb(283 25% 0%);
     }
     
 </style>
