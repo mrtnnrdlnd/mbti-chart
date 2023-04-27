@@ -13,8 +13,10 @@ const config = {
             pages: "docs",
             assets: "docs",
 			fallback: 'index.html',
-			strict: false
+			strict: false,
+
         }),
+		appDir: 'app',
         paths: {
             // change below to your repo name
             base: dev ? "" : "/mbti_chart",
