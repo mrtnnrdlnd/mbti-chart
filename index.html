@@ -5,10 +5,10 @@
 		<link rel="icon" href="/favicon.png" />
 		<meta name="viewport" content="width=device-width" />
 		<meta http-equiv="content-security-policy" content="">
-		<link rel="modulepreload" href="/build/_app/immutable/entry/start.fdb738d5.js">
-		<link rel="modulepreload" href="/build/_app/immutable/chunks/index.d296cc0f.js">
-		<link rel="modulepreload" href="/build/_app/immutable/chunks/singletons.c24dee32.js">
-		<link rel="modulepreload" href="/build/_app/immutable/entry/app.eb6a9cdd.js">
+		<link rel="modulepreload" href="/mbti-chart/build/_app/immutable/entry/start.fdb738d5.js">
+		<link rel="modulepreload" href="/mbti-chart/build/_app/immutable/chunks/index.d296cc0f.js">
+		<link rel="modulepreload" href="/mbti-chart/build/_app/immutable/chunks/singletons.c24dee32.js">
+		<link rel="modulepreload" href="/mbti-chart/build/_app/immutable/entry/app.eb6a9cdd.js">
 	</head>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
@@ -22,8 +22,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/build/_app/immutable/entry/start.fdb738d5.js"),
-						import("/build/_app/immutable/entry/app.eb6a9cdd.js")
+						import("/mbti-chart/build/_app/immutable/entry/start.fdb738d5.js"),
+						import("/mbti-chart/build/_app/immutable/entry/app.eb6a9cdd.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
